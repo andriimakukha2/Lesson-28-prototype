@@ -1,4 +1,3 @@
-// Базова функція конструктора для слайдера
 function Slider(containerId, config) {
     this.container = document.getElementById(containerId);
     this.slides = config.slides || [];
@@ -10,7 +9,6 @@ function Slider(containerId, config) {
     this.init();
 }
 
-// Ініціалізація слайдера
 Slider.prototype.init = function () {
     this.createSliderElements();
     this.showSlide(this.currentSlide);
@@ -18,7 +16,6 @@ Slider.prototype.init = function () {
     this.addEventListeners();
 };
 
-// Динамічна генерація елементів управління через JavaScript
 Slider.prototype.createSliderElements = function () {
     const sliderWrapper = document.createElement('div');
     sliderWrapper.className = 'slider-wrapper';
@@ -80,7 +77,6 @@ Slider.prototype.createSliderElements = function () {
     this.container.appendChild(sliderWrapper);
 };
 
-// Показ слайду за індексом
 Slider.prototype.showSlide = function (index) {
     const slides = this.container.querySelectorAll('.slide');
     const indicators = this.container.querySelectorAll('.indicator');
@@ -94,7 +90,6 @@ Slider.prototype.showSlide = function (index) {
     });
 };
 
-// Навігація вперед та назад
 Slider.prototype.nextSlide = function () {
     this.currentSlide = (this.currentSlide + 1) % this.slides.length;
     this.showSlide(this.currentSlide);
@@ -105,13 +100,11 @@ Slider.prototype.prevSlide = function () {
     this.showSlide(this.currentSlide);
 };
 
-// Навігація до конкретного слайду
 Slider.prototype.goToSlide = function (index) {
     this.currentSlide = index;
     this.showSlide(index);
 };
 
-// Автопрогравання слайдів
 Slider.prototype.startAutoPlay = function () {
     this.intervalId = setInterval(this.nextSlide.bind(this), this.intervalTime);
 };
@@ -120,7 +113,6 @@ Slider.prototype.stopAutoPlay = function () {
     clearInterval(this.intervalId);
 };
 
-// Кнопка пауза/відтворення
 Slider.prototype.togglePlayPause = function () {
     if (this.isPlaying) {
         this.stopAutoPlay();
@@ -132,11 +124,9 @@ Slider.prototype.togglePlayPause = function () {
     this.isPlaying = !this.isPlaying;
 };
 
-// Додамо автоматичну паузу при наведенні миші
 Slider.prototype.addEventListeners = function () {
     const sliderWrapper = this.container.querySelector('.slider-wrapper');
 
-    // Автоматична пауза при наведенні миші
     sliderWrapper.addEventListener('mouseenter', () => {
         this.stopAutoPlay();
     });
@@ -147,7 +137,6 @@ Slider.prototype.addEventListeners = function () {
         }
     });
 
-    // Додаємо обробку клавіш на клавіатурі
     document.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowRight') {
             this.nextSlide();
@@ -159,7 +148,6 @@ Slider.prototype.addEventListeners = function () {
     });
 };
 
-// Перезапуск автопрогравання після ручного перемикання
 Slider.prototype.restartAutoPlay = function () {
     this.stopAutoPlay();
     if (this.isPlaying) {
